@@ -33,6 +33,7 @@ public class RentalTransaction extends AbstractTransaction {
 		return rentalItem.getTitle();
 	}
 	
+	
 	/**
 	 * This calculates cost for this rental unit
 	 * @return
