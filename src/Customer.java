@@ -80,6 +80,20 @@ public class Customer {
 		rentalBonusPoints += trans.bonusTransPoints();
 	}
 	
+	private void addBonusFrequentRenterPoints(ArrayList<RentalTransaction> rt) {
+		CalculateRenterPoints pointsAge = new RenterPointsByAge();
+		CalculateRenterPoints pointsCategory = new RenterPointsByCategory();
+		CalculateRenterPoints pointsDuration = new RenterPointsByDuration();
+		if(pointsAge.rewardEligible(rt, this.age)) {
+			this.rentalBonusPoints = pointsAge.calculatePoints(rt, this.rentalBonusPoints);
+		}
+		if(pointsCategory.rewardEligible(rt, this.age)) {
+			this.rentalBonusPoints = pointsCategory.calculatePoints(rt, this.rentalBonusPoints);
+		}
+		if(pointsDuration.rewardEligible(rt, this.age)) {
+			this.rentalBonusPoints += pointsDuration.calculatePoints(rt, this.rentalBonusPoints);
+		}
+	}
 	/**
 	 * 
 	 */
