@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 /**
  * 
- * @author thanhng
+ * @author Chiajun Tai
  *
  */
 public class Customer {
@@ -57,15 +57,16 @@ public class Customer {
 	 */
 	public String getRentalStatement() {
 		StringBuilder statement = new StringBuilder();
+		statement.append("Customer: " + name + "\n" );
 		
 		/* Rental transaction summary */
 		for(AbstractTransaction trans : transactions) {
 			if(trans instanceof RentalTransaction)
 				// summarize for rental items
-				statement.append(((RentalTransaction) trans).getItemTitle() + "\t" + trans.calculateCost());
+				statement.append(((RentalTransaction) trans).getItemTitle() + "\t" + trans.calculateCost() + "\n");
 			else
 				// summarize for sale items
-				statement.append(((SaleTransaction) trans).getItemTitle() + "\t" + trans.calculateCost());
+				statement.append(((SaleTransaction) trans).getItemTitle() + "\t" + trans.calculateCost() + "\n");
 		}
 		
 		return statement.toString();

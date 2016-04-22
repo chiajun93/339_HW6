@@ -1,7 +1,7 @@
 /**
  * Class for a rental transaction, each rental transaction unit keeps track of one rental item
  * All transactions are buried in Customer class
- * @author thanhng
+ * @author Chiajun Tai
  *
  */
 public class RentalTransaction extends AbstractTransaction {
