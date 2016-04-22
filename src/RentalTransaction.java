@@ -14,12 +14,8 @@ public class RentalTransaction extends AbstractTransaction {
 	
 	// number of days the movie has been rented
 	private int rentalDuration;
-	
-	/**
-	 * 
-	 * @param movie
-	 * @param duration
-	 */
+
+
 	public RentalTransaction(RentableItem item, int duration) {
 		this.rentalItem = item;
 		this.rentalDuration = duration;
