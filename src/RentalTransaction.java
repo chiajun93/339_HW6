@@ -42,11 +42,10 @@ public class RentalTransaction extends AbstractTransaction {
 	public double calculateCost() {
 		return rentalItem.calculateRentalCost(rentalDuration);
 	}
-	
-	/**
-	 * This calculates frequent points for the rental of release movie with duration of more than 2 days
-	 * @return bonus points
-	 */
+
+
+
+
 	@Override
 	public double bonusTransPoints() {
 		int bonus = 0;
@@ -59,6 +58,12 @@ public class RentalTransaction extends AbstractTransaction {
 	public boolean rewardEgligble() {
 		return (rentalDuration >= MIN_DURANTION_FOR_BONUS);
 	}
-
-
+	
+	public int getBonusRental() {
+		return this.RENTAL_BONUS_POINT;
+	}
+	
+	public int getMinDuration() {
+		return this.MIN_DURANTION_FOR_BONUS;
+	}
 }

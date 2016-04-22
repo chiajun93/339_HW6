@@ -21,7 +21,7 @@ public class RentableRegularMovie extends RentableMovie {
 		// Additional fee calculation in case rental is expired
 		if(daysRented > RENTAL_DURATION_LIMIT) {
 			// do calculation here
-			rentalCost += (daysRented - 2) * LATE_FEE;
+			rentalCost += (daysRented - RENTAL_DURATION_LIMIT) * LATE_FEE;
 		}
 		return rentalCost;
 	}
