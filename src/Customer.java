@@ -1,10 +1,5 @@
 import java.util.ArrayList;
 
-/**
- * 
- * @author Chiajun Tai
- *
- */
 public class Customer {
 	private int customerID;
 	private String name;
@@ -42,6 +37,7 @@ public class Customer {
 	public void addTransaction(AbstractTransaction trans) {
 		transactions.add(trans);
 		double transCost = trans.calculateCost(this);
+		trans.setCost(transCost);
 		if(trans instanceof RentalTransaction) {
 			rentalCost += transCost;
 			addPreferredCustomerPoints(trans);
@@ -56,10 +52,9 @@ public class Customer {
 	public int getNumRentalItems(){
 		int count = 0;
 		for(AbstractTransaction trans: transactions){
-			if (trans instanceof RentalTransaction){
+			if (trans instanceof RentalTransaction)
 				count++;
-			}
-		}
+			}	
 		return count;
 	}
 
@@ -73,12 +68,14 @@ public class Customer {
 		
 		/* Rental transaction summary */
 		for(AbstractTransaction trans : transactions) {
-			if(trans instanceof RentalTransaction)
+			if(trans instanceof RentalTransaction){
 				// summarize for rental items
-				statement.append(((RentalTransaction) trans).getItemTitle() + "\t" + trans.calculateCost(this) + "\n");
-			else
+				statement.append(((RentalTransaction) trans).getItemTitle() + "\t" + trans.getCost() + "\n");
+			}
+			else{
 				// summarize for sale items
-				statement.append(((SaleTransaction) trans).getItemTitle() + "\t" + trans.calculateCost(this) + "\n");
+				statement.append(((SaleTransaction) trans).getItemTitle() + "\t" + trans.getCost() + "\n");
+			}
 		}
 
         statement.append("\nTotal rental cost:\t" + rentalCost + "\nTotal sale cost:\t" + saleCost + "\n");

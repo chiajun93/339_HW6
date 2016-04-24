@@ -1,3 +1,5 @@
+package hw6;
+
 public class SaleTransaction extends AbstractTransaction {
 	
 	/* Define final static variable specialized for sale here */
@@ -6,10 +8,13 @@ public class SaleTransaction extends AbstractTransaction {
 	
 	/* Number of sold items of this kind */
 	private int numberItemsSold;
+	
+	private double cost;
 
 	public SaleTransaction(SellableItem item, int numPurchased) {
 		this.saleItem = item;
 		this.numberItemsSold = numPurchased;
+		this.cost = 0;
 	}
 	
 	public String getItemTitle() {
@@ -46,4 +51,13 @@ public class SaleTransaction extends AbstractTransaction {
 		return saleItem;
 	}
 
+	@Override
+	public void setCost(double cost){
+		this.cost = cost;
+	}
+	
+	@Override
+	public double getCost(){
+		return cost;
+	}
 }

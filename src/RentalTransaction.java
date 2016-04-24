@@ -4,6 +4,8 @@
  * @author Chiajun Tai
  *
  */
+package hw6;
+
 public class RentalTransaction extends AbstractTransaction {
 
 	private final int RENTAL_BONUS_POINT = 1;
@@ -14,11 +16,13 @@ public class RentalTransaction extends AbstractTransaction {
 	
 	// number of days the movie has been rented
 	private int rentalDuration;
+	private double cost;
 
 
 	public RentalTransaction(RentableItem item, int duration) {
 		this.rentalItem = item;
 		this.rentalDuration = duration;
+		this.cost = 0;
 	}
 	
 	public RentableItem getRentableItem() {
@@ -62,4 +66,15 @@ public class RentalTransaction extends AbstractTransaction {
 	public int getMinDuration() {
 		return this.MIN_DURANTION_FOR_BONUS;
 	}
+
+	@Override
+	public void setCost(double cost) {
+		this.cost = cost;
+	}
+	
+	@Override
+	public double getCost(){
+		return cost;
+	}
+	
 }
