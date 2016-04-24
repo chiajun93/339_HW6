@@ -41,16 +41,26 @@ public class Customer {
 	 */
 	public void addTransaction(AbstractTransaction trans) {
 		transactions.add(trans);
-		double transCost = trans.calculateCost();
+		double transCost = trans.calculateCost(this);
 		if(trans instanceof RentalTransaction) {
-			rentalCost = transCost;
+			rentalCost += transCost;
 			addPreferredCustomerPoints(trans);
 		}
 		else {
-			saleCost = transCost;
+			saleCost += transCost;
 			// bonus part for sale
 		}
 		// check and update points for frequent customer
+	}
+
+	public int getNumRentalItems(){
+		int count = 0;
+		for(AbstractTransaction trans: transactions){
+			if (trans instanceof RentalTransaction){
+				count++;
+			}
+		}
+		return count;
 	}
 
 	/**
@@ -65,13 +75,14 @@ public class Customer {
 		for(AbstractTransaction trans : transactions) {
 			if(trans instanceof RentalTransaction)
 				// summarize for rental items
-				statement.append(((RentalTransaction) trans).getItemTitle() + "\t" + trans.calculateCost() + "\n");
+				statement.append(((RentalTransaction) trans).getItemTitle() + "\t" + trans.calculateCost(this) + "\n");
 			else
 				// summarize for sale items
-				statement.append(((SaleTransaction) trans).getItemTitle() + "\t" + trans.calculateCost() + "\n");
+				statement.append(((SaleTransaction) trans).getItemTitle() + "\t" + trans.calculateCost(this) + "\n");
 		}
 
-        statement.append("\nTotal frequent rental points:\t" + rentalBonusPoints + "\n");
+        statement.append("\nTotal rental cost:\t" + rentalCost + "\nTotal sale cost:\t" + saleCost + "\n");
+        statement.append("Total frequent rental points:\t" + rentalBonusPoints + "\n");
 		return statement.toString();
 	}
 
@@ -81,12 +92,12 @@ public class Customer {
 
     public int totalMovieTypes(){
         ArrayList<String> types = new ArrayList<>();
-
-        for(int i = 0; i < transactions.size(); i++){
-            RentalTransaction trans = (RentalTransaction)transactions.get(i);
-            if(!types.contains(trans.getRentableItem().getClass().toString())){
-                types.add(trans.getRentableItem().getClass().toString());
-            }
+        for(AbstractTransaction trans: transactions){
+			if(trans instanceof RentalTransaction){
+				if(!types.contains(((RentalTransaction)trans).getRentableItem().getClass().toString())){
+					types.add(((RentalTransaction)trans).getRentableItem().getClass().toString());
+				}
+			}
         }
 
         return types.size();

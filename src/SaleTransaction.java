@@ -22,14 +22,28 @@ public class SaleTransaction extends AbstractTransaction {
 	 * In case, sale price changes in number of purchased items, you may 
 	 * move numberItemSold to subclasses of SellableItem
 	 */
-	public double calculateCost() {
-		return saleItem.calculateSaleCost(numberItemsSold);
+	public double calculateCost(Customer customer) {
+		int rentalItems = customer.getNumRentalItems();
+        if(rentalItems >= 3 && rentalItems <= 5)
+            return new SaleDiscount1().calculateSaleCost(this);
+		else if(rentalItems > 5)
+			return new SaleDiscount2().calculateSaleCost(this);
+        else
+		    return new TransactionStrategy().calculateSaleCost(this);
 	}
 
 	@Override
 	public double bonusTransPoints() {
 		// TODO Do advanced for sale point here
 		return 0;
+	}
+
+	public int getNumItemsSold(){
+		return numberItemsSold;
+	}
+
+	public SellableItem getSaleItem(){
+		return saleItem;
 	}
 
 }

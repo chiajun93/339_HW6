@@ -12,7 +12,7 @@ public abstract class AbstractTransaction {
 	
 	protected Date transactionTime;
 	
-	public abstract double calculateCost();
+	public abstract double calculateCost(Customer customer);
 	
 	public abstract double bonusTransPoints();
 }
